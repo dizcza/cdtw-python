@@ -12,15 +12,38 @@ def load_cdll():
             libpath = fpath
             break
     cdll = ctypes.CDLL(str(libpath))
-    cdll.dtw.argtypes = [
+
+    # dtw_dist function
+    cdll.dtw_dist.argtypes = [
         np.ctypeslib.ndpointer(dtype=np.float32, ndim=1,
                                flags='C_CONTIGUOUS'),
         np.ctypeslib.ndpointer(dtype=np.float32, ndim=1,
                                flags='C_CONTIGUOUS'),
-        np.ctypeslib.ndpointer(dtype=np.float32, ndim=1,
-                               flags='C_CONTIGUOUS'),
+        ctypes.c_int32, ctypes.c_int32
     ]
-    cdll.dtw.restype = ctypes.c_void_p
+    cdll.dtw_dist.restype = ctypes.c_float
+
+    # dtw_mat function
+    cdll.dtw_mat.argtypes = [
+        np.ctypeslib.ndpointer(dtype=np.float32, ndim=1,
+                               flags='C_CONTIGUOUS'),
+        np.ctypeslib.ndpointer(dtype=np.float32, ndim=1,
+                               flags='C_CONTIGUOUS'),
+        np.ctypeslib.ndpointer(dtype=np.float32, ndim=1,
+                               flags='C_CONTIGUOUS'),
+        ctypes.c_int32, ctypes.c_int32
+    ]
+    cdll.dtw_mat.restype = ctypes.c_void_p
+
+    # dtw_path function
+    cdll.dtw_path.argtypes = [
+        np.ctypeslib.ndpointer(dtype=np.float32, ndim=1,
+                               flags='C_CONTIGUOUS'),
+        np.ctypeslib.ndpointer(dtype=np.float32, ndim=1,
+                               flags='C_CONTIGUOUS'),
+        ctypes.c_int32, ctypes.c_int32
+    ]
+    cdll.dtw_path.restype = ctypes.c_int32
     return cdll
 
 
