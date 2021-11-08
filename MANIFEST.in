@@ -1,0 +1,9 @@
+recursive-include cdtw *.py
+include README.md
+include LICENSE
+include requirements.txt
+recursive-include docs *
+prune docs/_build
+prune docs/toctree
+recursive-exclude * *~
+recursive-exclude lib *.so

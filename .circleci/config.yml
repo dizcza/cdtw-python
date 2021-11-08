@@ -1,0 +1,28 @@
+version: 2.1
+
+orbs:
+  python: circleci/python@0.3.2
+
+jobs:
+  build-pip:
+    executor: python/default
+    steps:
+      - checkout
+      - python/load-cache:
+          key: pip
+      - run:
+          command: |
+              pip install -r requirements.txt
+              pip install nose coveralls
+              pip install dtaidistance
+      - python/save-cache:
+          key: pip
+      - run:
+          command: |
+              nosetests --with-coverage --cover-package=cdtw cdtw/tests
+              coveralls
+
+workflows:
+  main:
+    jobs:
+      - build-pip

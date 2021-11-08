@@ -1,7 +1,9 @@
 .idea/
 build/
+dist/
 *.egg-info
 *.pyc
 *.so
 MANIFEST
-
+docs/toctree/
+docs/_build/

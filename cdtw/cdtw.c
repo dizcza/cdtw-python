@@ -27,12 +27,10 @@ void dtw_mat(float *cost_mat, const float *x, const float *y, int32_t nx, int32_
     for (j = 1; j <= ny; j++) {
         cost_mat[j] = INFINITY;
     }
-    for (i = 1; i <= nx; i++) {
-        cost_mat[i * ncol] = INFINITY;
-    }
     cost_mat[0] = 0;
 
     for (i = 1; i <= nx; i++) {
+        cost_mat[i * ncol] = INFINITY;
         for (j = 1; j <= ny; j++) {
             cost = pow(x[i - 1] - y[j - 1], 2);
             cost_mat[i * ncol + j] = cost + min3(cost_mat[(i - 1) * ncol + j],        // insertion
