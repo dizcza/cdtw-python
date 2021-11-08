@@ -37,7 +37,7 @@ def load_cdll():
 
     # dtw_path function
     cdll.dtw_path.argtypes = [
-        np.ctypeslib.ndpointer(dtype=np.float32, ndim=1,
+        np.ctypeslib.ndpointer(dtype=np.int32, ndim=1,
                                flags='C_CONTIGUOUS'),
         np.ctypeslib.ndpointer(dtype=np.float32, ndim=1,
                                flags='C_CONTIGUOUS'),

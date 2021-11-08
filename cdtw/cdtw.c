@@ -43,14 +43,6 @@ void dtw_mat(float *cost_mat, const float *x, const float *y, int32_t nx, int32_
 }
 
 
-void pprint(float *m, int32_t size) {
-    int32_t i;
-    for (i = 0; i < size; i++) {
-        printf("%4.0f ", m[i]);
-    }
-    printf("\n");
-}
-
 float dtw_dist(const float *x, const float *y, int32_t nx, int32_t ny) {
     int32_t i, j, k;
     const int32_t ncol = ny + 2;
@@ -61,7 +53,6 @@ float dtw_dist(const float *x, const float *y, int32_t nx, int32_t ny) {
         cost_mat[j] = INFINITY;
     }
     cost_mat[1] = 0;
-//    pprint(cost_mat, ncol);
     for (i = 1; i <= nx; i++) {
         for (j = 1; j <= ny; j++) {
             k = int32_mod(j - i + 1, ncol);
@@ -71,10 +62,9 @@ float dtw_dist(const float *x, const float *y, int32_t nx, int32_t ny) {
                                       cost_mat[k]);                       // match
         }
         cost_mat[int32_mod(k + 1, ncol)] = INFINITY;
-//        pprint(cost_mat, ncol);
     }
 
-    float dist = cost_mat[k];
+    float dist = sqrt(cost_mat[k]);
 
     free(cost_mat);
 
@@ -92,7 +82,7 @@ int32_t dtw_path(int32_t *path, const float *cost_mat, int32_t nx, int32_t ny) {
 
     int32_t *p_path = path;
 
-    while (n >= 0 || m >= 0) {
+    while (n > 0 || m > 0) {
         *p_path++ = n;
         *p_path++ = m;
         if (n == 0) {
@@ -113,6 +103,8 @@ int32_t dtw_path(int32_t *path, const float *cost_mat, int32_t nx, int32_t ny) {
             }
         }
     }
+    *p_path++ = 0;
+    *p_path++ = 0;
 
     int32_t path_len = (p_path - path) / 2;
 

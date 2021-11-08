@@ -14,10 +14,12 @@ def dtw_mat(x, y):
     x = np.ascontiguousarray(x, dtype=np.float32)
     y = np.ascontiguousarray(y, dtype=np.float32)
     nx, ny = len(x), len(y)
-    res = np.zeros((nx + 1) * (ny + 1), dtype=np.float32)
-    cdtwlib.dtw_mat(res, x, y, nx, ny)
-    res = res.reshape((nx + 1, ny + 1))
-    return res
+    cost_mat = np.zeros((nx + 1) * (ny + 1), dtype=np.float32)
+    cdtwlib.dtw_mat(cost_mat, x, y, nx, ny)
+    cost_mat = cost_mat.reshape((nx + 1, ny + 1))
+    cost_mat = np.sqrt(cost_mat)
+    # the first row & col are inf
+    return cost_mat[1:, 1:]
 
 
 def dtw_dist(x, y):
@@ -31,21 +33,15 @@ def dtw_dist(x, y):
 def dtw_path(cost_mat):
     nx, ny = cost_mat.shape
     cost_mat = np.ascontiguousarray(cost_mat.reshape(-1), dtype=np.float32)
-    path_alloc = np.empty(nx + ny, dtype=np.int32)
+    path_alloc = np.empty((nx + ny) * 2, dtype=np.int32)
     path_len = cdtwlib.dtw_path(path_alloc, cost_mat, nx, ny)
-    path_alloc = path_alloc[:path_len][::-1]
+    path_alloc = path_alloc.reshape((-1, 2))[:path_len][::-1]
     return path_alloc
 
 
 if __name__ == '__main__':
-    import time
     x = [1, 2, 3, 4, 5]
     y = [2, 3, 4]
-    # np.random.seed(0)
-    # x = np.random.randn(10_000).astype(np.float32)
-    # y = np.random.randn(20_000).astype(np.float32)
-    start = time.time()
+    print(dtw_dist(x, y))
     cost = dtw_mat(x, y)
-    duration = time.time() - start
-    print(f"{duration=:.3f} s")
-    print(cost)
+    print(dtw_path(cost).tolist())
