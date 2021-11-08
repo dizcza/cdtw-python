@@ -1,6 +1,8 @@
 import ctypes
 import re
+import warnings
 from pathlib import Path
+
 import numpy as np
 
 
@@ -11,6 +13,10 @@ def load_cdll():
         if re.match("cdtw\.cpython.*\.so", fpath.name):
             libpath = fpath
             break
+    if libpath is None:
+        # to be run on readthedocs
+        warnings.warn("Could not find the compiled library")
+        return None
     cdll = ctypes.CDLL(str(libpath))
 
     # dtw_dist function

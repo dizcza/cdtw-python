@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <math.h>
+#include <stdlib.h>
 
 
 inline float min3(float a, float b, float c) {
@@ -42,7 +43,7 @@ void dtw_mat(float *cost_mat, const float *x, const float *y, int32_t nx, int32_
 
 
 float dtw_dist(const float *x, const float *y, int32_t nx, int32_t ny) {
-    int32_t i, j, k;
+    int32_t i, j, k = 1;
     const int32_t ncol = ny + 2;
     float cost;
 

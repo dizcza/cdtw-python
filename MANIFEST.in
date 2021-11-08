@@ -3,6 +3,7 @@ include README.md
 include LICENSE
 include requirements.txt
 recursive-include docs *
+include lib/__init__.py
 prune docs/_build
 prune docs/toctree
 recursive-exclude * *~

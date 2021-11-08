@@ -12,7 +12,7 @@ The behavior and execution time is equivalent to the [dtaidistance](https://gith
 ## Installation
 
 ```
-pip install cdtw-python
+pip install -e git+https://github.com/dizcza/cdtw-python.git#egg=cdtw
 ```
 
 ## Documentation

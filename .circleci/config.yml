@@ -13,13 +13,14 @@ jobs:
       - run:
           command: |
               pip install -r requirements.txt
-              pip install nose coveralls
+              pip install coverage coveralls
               pip install dtaidistance
       - python/save-cache:
           key: pip
+      - run: pip install -e -v .
       - run:
           command: |
-              nosetests --with-coverage --cover-package=cdtw cdtw/tests
+              coverage run -m unittest discover tests
               coveralls
 
 workflows:

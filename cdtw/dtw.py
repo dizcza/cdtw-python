@@ -23,15 +23,14 @@ __all__ = [
 
 
 def dtw_mat(x, y):
-    """
+    r"""
     Computes the full cost (distance) matrix ``D`` between all elements of
     ``x`` and ``y`` according to
 
     .. math::
-        \textbf{D}_{ij} = d(x_i, y_j) + \min{\lbrace \textbf{D}_{i-1,j-1},
-                                                   \textbf{D}_{i-1, j},
-                                                   \textbf{D}_{i, j-1} \rbrace}
-
+        \boldsymbol{D}_{ij} = d(x_i, y_j) +
+        \min{\lbrace \boldsymbol{D}_{i-1,j-1}, \boldsymbol{D}_{i-1, j},
+                     \boldsymbol{D}_{i, j-1} \rbrace}
 
     where :math:`d(x_i, y_j)` is the Euclidean squared metric. A squared root
     of the output matrix ``D`` is returned.
