@@ -11,15 +11,6 @@ inline float min3(float a, float b, float c) {
 }
 
 
-inline int32_t int32_mod(int32_t a, int32_t b) {
-	int32_t mod = a % b;
-	if (mod < 0) {
-		mod += b;
-	}
-	return mod;
-}
-
-
 void dtw_mat(float *cost_mat, const float *x, const float *y, int32_t nx, int32_t ny) {
     int32_t i, j;
     const int32_t ncol = ny + 1;
@@ -54,13 +45,14 @@ float dtw_dist(const float *x, const float *y, int32_t nx, int32_t ny) {
     cost_mat[1] = 0;
     for (i = 1; i <= nx; i++) {
         for (j = 1; j <= ny; j++) {
-            k = int32_mod(j - i + 1, ncol);
+            k = (j - i + 1) % ncol;
+            if (k < 0) k += ncol;
             cost = pow(x[i - 1] - y[j - 1], 2);
-            cost_mat[k] = cost + min3(cost_mat[int32_mod(k + 1, ncol)],   // insertion
-                                      cost_mat[int32_mod(k - 1, ncol)],   // deletion
-                                      cost_mat[k]);                       // match
+            cost_mat[k] = cost + min3(cost_mat[(k + 1) % ncol],          // insertion
+                                      cost_mat[(k - 1 + ncol) % ncol],   // deletion
+                                      cost_mat[k]);                      // match
         }
-        cost_mat[int32_mod(k + 1, ncol)] = INFINITY;
+        cost_mat[(k + 1) % ncol] = INFINITY;
     }
 
     float dist = sqrt(cost_mat[k]);
