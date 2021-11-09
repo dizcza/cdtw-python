@@ -5,9 +5,9 @@
 
 # Dynamic Time Warping in C with Python bindings
 
-The simplest Dynamic Time Warping C implementation with Python bindings.
+The simplest (and perhaps fastest) Dynamic Time Warping C implementation with Python bindings.
 
-The behavior and execution time is equivalent to the [dtaidistance](https://github.com/wannesm/dtaidistance) package but with much simpler (basic) API.
+The behavior and execution time is equivalent to the [dtaidistance](https://github.com/wannesm/dtaidistance) package but with much simpler (basic) API and a bit faster.
 
 ## Installation
 
@@ -45,3 +45,27 @@ array([[1.       , 2.236068 , 3.7416575],
 [[0, 0], [1, 0], [2, 1], [3, 2], [4, 2]]
 ```
 
+## Benchmarking
+
+```python
+>>> import dtaidistance
+>>> import numpy as np
+>>> import cdtw
+>>> np.random.seed(0)
+>>> x = np.random.randn(10_000)
+>>> y = np.random.randn(10_000)
+
+>>> %timeit cdtw.dtw_dist(x, y)
+526 ms ± 12.2 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+
+>>> %timeit dtaidistance.dtw.distance_fast(x, y)
+642 ms ± 6.56 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+
+>>> %timeit cdtw.dtw_mat(x, y)
+769 ms ± 20.8 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+
+>>> %timeit dtaidistance.dtw.warping_paths_fast(x, y)
+2.04 s ± 101 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+```
+
+The *cdtw* package converts everything to the `float` data type (if needed) while *dtaidistance* requires `double`. The *cdtw* compiled with the `double` precision is still marginally faster than *dtaidistance*.

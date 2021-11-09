@@ -32,8 +32,8 @@ def dtw_mat(x, y):
         \min{\lbrace \boldsymbol{D}_{i-1,j-1}, \boldsymbol{D}_{i-1, j},
                      \boldsymbol{D}_{i, j-1} \rbrace}
 
-    where :math:`d(x_i, y_j)` is the Euclidean squared metric. A squared root
-    of the output matrix ``D`` is returned.
+    where :math:`d(x_i, y_j) = (x_i - u_j)^2` is the Euclidean metric. A
+    squared root of the output matrix ``D`` is returned.
 
     Parameters
     ----------
