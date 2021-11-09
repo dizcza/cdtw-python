@@ -48,7 +48,7 @@ def dtw_mat(x, y):
     x = np.ascontiguousarray(x, dtype=np.float32)
     y = np.ascontiguousarray(y, dtype=np.float32)
     nx, ny = len(x), len(y)
-    cost_mat = np.zeros((nx + 1) * (ny + 1), dtype=np.float32)
+    cost_mat = np.empty((nx + 1) * (ny + 1), dtype=np.float32)
     cdtwlib.dtw_mat(cost_mat, x, y, nx, ny)
     cost_mat = cost_mat.reshape((nx + 1, ny + 1))
     cost_mat = np.sqrt(cost_mat, out=cost_mat)
