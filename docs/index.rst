@@ -3,7 +3,7 @@ Dynamic Time Warping in C
 
 The simplest Dynamic Time Warping C implementation with Python bindings.
 
-The behavior and execution time is equivalent to the `dtaidistance <https://github.com/wannesm/dtaidistance>`_ package but with much simpler (basic) API.
+The behavior is equivalent to the `dtaidistance <https://github.com/wannesm/dtaidistance>`_ package but with much simpler (basic) API and **X2 faster**.
 
 
 Installation

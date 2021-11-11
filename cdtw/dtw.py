@@ -38,13 +38,15 @@ def dtw_mat(x, y):
     Parameters
     ----------
     x, y : np.ndarray
-        Input time series, 1-d arrays of arbitrary size.
+        Input time series, 1-d arrays of arbitrary length.
 
     Returns
     -------
     cost_mat : np.ndarray
         A squared root of the distance matrix ``D``.
     """
+    if len(x) == 0 or len(y) == 0:
+        raise ValueError("Got an empty array")
     x = np.ascontiguousarray(x, dtype=np.float32)
     y = np.ascontiguousarray(y, dtype=np.float32)
     nx, ny = len(x), len(y)
@@ -65,13 +67,15 @@ def dtw_dist(x, y):
     Parameters
     ----------
     x, y : np.ndarray
-        Input time series, 1-d arrays of arbitrary size.
+        Input time series, 1-d arrays of arbitrary length.
 
     Returns
     -------
     dist : float
         The distance between ``x`` and ``y``.
     """
+    if len(x) == 0 or len(y) == 0:
+        raise ValueError("Got an empty array")
     x = np.ascontiguousarray(x, dtype=np.float32)
     y = np.ascontiguousarray(y, dtype=np.float32)
     if len(x) < len(y):

@@ -2,7 +2,7 @@ import unittest
 import math
 
 import numpy as np
-from cdtw import *
+from cdtw.dtw import *
 from numpy.testing import assert_array_equal, assert_array_almost_equal
 
 try:
@@ -13,6 +13,16 @@ except ImportError:
 
 
 class TestCDTW(unittest.TestCase):
+
+    def test_empty(self):
+        self.assertRaises(ValueError, dtw_mat, [], [1.0, 2.0])
+        self.assertRaises(ValueError, dtw_dist, [], [1.0, 2.0])
+
+    def test_one_point(self):
+        self.assertEqual(dtw_dist([1.0], [5.0]), 4.0)
+        cost_mat = dtw_mat([1.0], [5.0])
+        assert_array_equal(cost_mat, [[4.0]])
+        assert_array_equal(dtw_path(cost_mat), [(0, 0)])
 
     def test_simple(self):
         x = [1, 2, 3, 4, 5]
