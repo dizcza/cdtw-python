@@ -45,6 +45,9 @@ array([[1.       , 2.236068 , 3.7416575],
 [[0, 0], [1, 0], [2, 1], [3, 2], [4, 2]]
 ```
 
+See [Tutorial.ipynb](./docs/Tutorial.ipynb) for further explanation.
+
+
 ## Benchmarking
 
 ```python

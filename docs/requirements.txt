@@ -1,2 +1,4 @@
 numpydoc
 sphinx
+nbsphinx
+sphinx_gallery

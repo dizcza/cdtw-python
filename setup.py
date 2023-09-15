@@ -3,12 +3,15 @@ from distutils.core import setup, Extension
 with open("README.md") as f:
     long_description = f.read()
 
+with open('requirements.txt') as f:
+    install_requires = f.read().splitlines()
+
 setup(name='cdtw',
       version='0.1.0',
       description='Dynamic Time Warping in C with Python bindings',
       author="Danylo Ulianych",
       author_email="dizcza@gmail.com",
-      install_requires=['numpy'],
+      install_requires=install_requires,
       ext_modules=[Extension('lib.cdtw', sources=['cdtw/cdtw.c'])],
       license='MIT',
       long_description=long_description,

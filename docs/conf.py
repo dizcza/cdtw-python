@@ -12,13 +12,14 @@
 #
 import os
 import sys
+from datetime import datetime
 sys.path.insert(0, os.path.abspath('..'))
 
 
 # -- Project information -----------------------------------------------------
 
 project = 'Dynamic Time Warping in C'
-copyright = '2021, Danylo Ulianych'
+copyright = f'{datetime.now().strftime("%Y")}, Danylo Ulianych'
 author = 'Danylo Ulianych'
 
 # The full version, including alpha/beta/rc tags
@@ -37,6 +38,8 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.mathjax',
     'numpydoc',
+    'nbsphinx',
+    "sphinx_gallery.load_style",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
